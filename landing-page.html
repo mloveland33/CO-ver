@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO-ver | Stop Losing 15-20% on Change Orders</title>
+    <meta name="description" content="Change order verification for construction developers. See exactly how a change order compares to your original contract. Protect your budget with clear, visual insights.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Brand Colors */
+            --royal-blue: #23408b;
+            --royal-blue-dark: #1a3068;
+            --grass-green: #3cb049;
+            --grass-green-dark: #2d8a38;
+            --sky-blue: #5379bc;
+            --slate-grey: #b2b2b2;
+            /* Semantic Aliases */
+            --primary: var(--royal-blue);
+            --primary-dark: var(--royal-blue-dark);
+            --accent: var(--grass-green);
+            --accent-light: #4dc55a;
+            --review-orange: #e67e22;
+            --light: #f8f9fa;
+            --text: #2d3436;
+            --text-muted: #636e72;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            z-index: 1000;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--grass-green-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: var(--royal-blue);
+            display: flex;
+            flex-direction: column;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px 40px;
+            text-align: center;
+        }
+
+        .hero-logo {
+            height: 140px;
+            width: auto;
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            background: var(--grass-green);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(60, 176, 73, 0.4);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            color: white;
+        }
+
+        h1 {
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .highlight {
+            color: var(--accent);
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Signup Card */
+        .signup-card {
+            background: white;
+            border-radius: 20px;
+            padding: 45px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .signup-card h2 {
+            font-size: 26px;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .signup-card .subtext {
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            font-size: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(60, 176, 73, 0.1);
+        }
+
+        .cta-button {
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+            box-shadow: 0 4px 15px rgba(60, 176, 73, 0.4);
+        }
+
+        .cta-button:hover {
+            background: var(--grass-green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(60, 176, 73, 0.5);
+        }
+
+        .trust-text {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .trust-text svg {
+            width: 14px;
+            height: 14px;
+            vertical-align: middle;
+            margin-right: 4px;
+            color: var(--accent);
+        }
+
+        /* Pain Points Section */
+        .pain-section {
+            padding: 100px 20px;
+            background: var(--light);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .section-header h2 {
+            font-size: 42px;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: var(--text-muted);
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .pain-card {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--sky-blue);
+            transition: transform 0.3s ease;
+        }
+
+        .pain-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pain-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .pain-card h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .pain-card p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* Solution Section */
+        .solution-section {
+            padding: 100px 20px;
+            background: white;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .solution-content h2 {
+            font-size: 42px;
+            color: var(--primary);
+            margin-bottom: 24px;
+        }
+
+        .solution-content p {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .feature-check {
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 14px;
+            flex-shrink: 0;
+            color: white;
+            font-size: 14px;
+        }
+
+        /* Demo Preview */
+        .demo-preview {
+            background: var(--light);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .demo-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .demo-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .verification-score {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .score-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            font-size: 36px;
+            font-weight: 800;
+            padding: 16px 32px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .score-label {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .line-items {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .line-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            border-bottom: 1px solid #f1f3f4;
+        }
+
+        .line-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .item-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-fair {
+            background: rgba(60, 176, 73, 0.15);
+            color: var(--accent);
+        }
+
+        .status-review {
+            background: rgba(230, 126, 34, 0.15);
+            color: var(--review-orange);
+        }
+
+        /* Target Audience */
+        .audience-section {
+            padding: 100px 20px;
+            background: var(--light);
+        }
+
+        .audience-card {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .audience-content h2 {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .audience-content p {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 24px;
+        }
+
+        .audience-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .audience-stat {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .audience-stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .audience-stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .final-cta h2 {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .final-cta p {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .final-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+        }
+
+        .final-form h3 {
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: var(--accent);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-grid,
+            .solution-grid,
+            .audience-card {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            h1 {
+                font-size: 38px;
+            }
+
+            .pain-grid,
+            .steps-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .section-header h2,
+            .final-cta h2 {
+                font-size: 32px;
+            }
+
+            .signup-card {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <a href="#" class="logo"><img src="Brand Package/Logos/cover_horizontal_Tight.png" alt="CO-VER - Change Order Verification" height="50"></a>
+            <a href="#signup" class="nav-cta">Get Early Access</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-banner">
+            <img src="Brand Package/Logos/Color on bule 2.png" alt="CO-VER" class="hero-logo">
+            <div class="eyebrow">Coming Soon for Construction Developers</div>
+        </div>
+        <div class="hero-grid container">
+            <div class="hero-content">
+                <h1>Stop Losing <span class="highlight">15-20%</span> on Change Orders</h1>
+                <p class="hero-subtitle">See exactly how every change order compares to your original contract. Clear, visual verification that shows you what's fair—so you can make confident decisions without digging through spreadsheets.</p>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-value">15-20%</div>
+                        <div class="stat-label">Average loss on unverified change orders</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">$/Unit</div>
+                        <div class="stat-label">Contract vs. change order clarity</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="signup-card" id="signup">
+                <h2>Get Early Access</h2>
+                <p class="subtext">Be first in line when we launch. Limited spots available.</p>
+
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="company">Company Name *</label>
+                        <input type="text" id="company" name="company" placeholder="Your Development Company" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Your Name *</label>
+                        <input type="text" id="name" name="name" placeholder="John Smith" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Work Email *</label>
+                        <input type="email" id="email" name="email" placeholder="john@company.com" required>
+                    </div>
+
+                    <button type="submit" class="cta-button">Reserve My Spot</button>
+
+                    <p class="trust-text">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                        Your info is secure. We'll only contact you about CO-ver.
+                    </p>
+                </form>
+
+                <div id="successMessage" class="success-message">
+                    🎉 You're on the list! We'll reach out soon with early access details.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pain Points -->
+    <section class="pain-section">
+        <div class="section-header">
+            <h2>The Change Order Problem</h2>
+            <p>Mid-market developers with $10M-$100M in annual construction volume face the same costly challenges</p>
+        </div>
+
+        <div class="pain-grid">
+            <div class="pain-card">
+                <div class="pain-icon">📊</div>
+                <h3>Manual Excel Chaos</h3>
+                <p>You're stuck comparing change orders line-by-line in spreadsheets, hoping you don't miss an inflated cost or unnecessary markup.</p>
+            </div>
+
+            <div class="pain-card">
+                <div class="pain-icon">📧</div>
+                <h3>Endless Email Chains</h3>
+                <p>Back-and-forth negotiations with GCs drag on for days. Meanwhile, your project timeline—and budget—suffer.</p>
+            </div>
+
+            <div class="pain-card">
+                <div class="pain-icon">🎯</div>
+                <h3>Pure Guesswork</h3>
+                <p>Without independent verification tools, you're forced to trust contractor pricing or waste hours researching market rates yourself.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution-section">
+        <div class="solution-grid container">
+            <div class="solution-content">
+                <h2>Clear Visibility on Every Change Order</h2>
+                <p>CO-ver compares change orders directly against your original contract—by CSI subcode, by unit cost, by square footage—so you can see exactly where numbers align and where they don't.</p>
+
+                <ul class="feature-list">
+                    <li>
+                        <span class="feature-check">✓</span>
+                        <span><strong>Contract vs. Change Order</strong> — Compare $/unit from your original quote against what's being charged</span>
+                    </li>
+                    <li>
+                        <span class="feature-check">✓</span>
+                        <span><strong>Color-Coded by CSI Subcode</strong> — Red/green breakdown shows exactly where costs differ from the original</span>
+                    </li>
+                    <li>
+                        <span class="feature-check">✓</span>
+                        <span><strong>Regional Cost Validation</strong> — Labor rates and regional pricing data give you independent reference points</span>
+                    </li>
+                    <li>
+                        <span class="feature-check">✓</span>
+                        <span><strong>AI-Assisted Scoring</strong> — Surface the line items that need attention without reviewing everything manually</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="demo-preview">
+                <div class="demo-header">
+                    <div class="demo-dot" style="background: var(--royal-blue);"></div>
+                    <div class="demo-dot" style="background: var(--sky-blue);"></div>
+                    <div class="demo-dot" style="background: var(--grass-green);"></div>
+                    <span style="margin-left: auto; font-size: 13px; color: var(--text-muted);">Change Order #247</span>
+                </div>
+
+                <div class="verification-score">
+                    <div class="score-badge">94%</div>
+                    <div class="score-label">VERIFICATION SCORE</div>
+                    <p style="font-size: 14px; color: var(--text-muted); margin-top: 8px;">✅ Recommended to Approve with Minor Review</p>
+                </div>
+
+                <div class="line-items">
+                    <div class="line-item">
+                        <span class="item-name">03 30 00 - Concrete</span>
+                        <span class="item-status status-fair">Fair Price</span>
+                    </div>
+                    <div class="line-item">
+                        <span class="item-name">26 05 00 - Electrical</span>
+                        <span class="item-status status-fair">Fair Price</span>
+                    </div>
+                    <div class="line-item">
+                        <span class="item-name">22 11 00 - Plumbing</span>
+                        <span class="item-status status-review">Review: +12%</span>
+                    </div>
+                    <div class="line-item">
+                        <span class="item-name">09 91 00 - Painting</span>
+                        <span class="item-status status-fair">Fair Price</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <h2>Be Among the First</h2>
+
+        <div class="final-form">
+            <h3>Secure Your Spot</h3>
+            <form id="signupForm2">
+                <div class="form-group">
+                    <label for="company2">Company Name *</label>
+                    <input type="text" id="company2" name="company" placeholder="Your Development Company" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="name2">Your Name *</label>
+                    <input type="text" id="name2" name="name" placeholder="John Smith" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email2">Work Email *</label>
+                    <input type="email" id="email2" name="email" placeholder="john@company.com" required>
+                </div>
+
+                <button type="submit" class="cta-button">Get Early Access</button>
+            </form>
+
+            <div id="successMessage2" class="success-message">
+                🎉 You're on the list! We'll reach out soon with early access details.
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <img src="Brand Package/Logos/cover_horizontal_Tight.png" alt="CO-VER" height="60" style="margin-bottom: 16px; filter: brightness(0) invert(1);">
+        <p>&copy; 2025 CO-VER. All rights reserved. Change Order Verification for construction developers.</p>
+    </footer>
+
+    <script>
+        // Form submission handler
+        function handleFormSubmit(formId, successId) {
+            document.getElementById(formId).addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const form = e.target;
+                const formData = {
+                    company: form.querySelector('[name="company"]').value,
+                    name: form.querySelector('[name="name"]').value,
+                    email: form.querySelector('[name="email"]').value,
+                    timestamp: new Date().toISOString(),
+                    source: 'landing-page'
+                };
+
+                // Log to console (replace with your backend endpoint)
+                console.log('CO-ver Waitlist Signup:', formData);
+
+                // In production, send to your backend:
+                // fetch('/api/waitlist', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify(formData)
+                // });
+
+                // Show success message
+                document.getElementById(successId).classList.add('show');
+                form.reset();
+
+                // Hide after 5 seconds
+                setTimeout(() => {
+                    document.getElementById(successId).classList.remove('show');
+                }, 5000);
+            });
+        }
+
+        handleFormSubmit('signupForm', 'successMessage');
+        handleFormSubmit('signupForm2', 'successMessage2');
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
